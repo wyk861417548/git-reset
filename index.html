@@ -9,5 +9,29 @@
 <body>
   <div>你好</div>
   <script src="./index.js"></script>
+  <script>
+    function request({url,method,headers}){
+      return new Promise((res,rej)=>{
+        let xhr = XMLHttpRequest()
+        xhr.open(method,url,true);
+        
+        xhr.onreadystatechange = function(){
+          if(this.readyState !=4)return;
+          
+          this.state ==200 ?res(this.response):rej(this.responceText)
+        }
+
+        xhr.setresponseType = 'json';
+
+        if(headers){
+          for (const key in headers) {
+            xhr.setRequestHeader(key,headers[key])
+          }
+        }
+
+        xhr.send();
+      })
+    }
+  </script>
 </body>
 </html>
