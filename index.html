@@ -32,6 +32,26 @@
         xhr.send();
       })
     }
+
+    // 深拷贝
+    /**
+     * 1.判断是否是对象
+     * 2.判断传入的值是数组还是对象，赋值初始值是对象还是数组
+     * 3.引入WeakMap处理自身引用问题，
+     * 4.递归遍历
+     */
+    function deep(target,map=new WeakMap()){
+      if(!(typeof target === 'object' && target != null))return target;
+      let cloneTarget = Array.isArray(target)?[]:{}
+
+      if(map.get(target))return map.get(target);
+      map.set(target,cloneTarget)
+
+      for (const key in object) {
+        cloneTarget[key] = deep(object[key],map)
+      }
+      return cloneTarget;
+    }
   </script>
 </body>
 </html>
